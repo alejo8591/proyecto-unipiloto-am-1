@@ -225,7 +225,7 @@ module.exports = function(app, db){
 
         stmt.run([req.body.firstname, req.body.lastname, req.body.phone, req.body.password, req.params.email], function(err, rows){
 
-          console.log('POST - update User with data = \n {' + '\n email : ' + req.params.email + '\n firstname : ' + req.body.firstname + '\n lastname : ' + req.body.lastname + '\n phone : ' + req.body.phone + + '\n password : ' + req.body.password +'\n }');
+          console.log('POST - update User with data = \n {' + '\n email : ' + req.params.email + '\n firstname : ' + req.body.firstname + '\n lastname : ' + req.body.lastname + '\n phone : ' + req.body.phone + '\n password : ' + req.body.password +'\n }');
 
           res.header('Access-Control-Allow-Origin', '*');
           res.header('Access-Control-Allow-Methods', 'POST, PUT');
@@ -274,6 +274,49 @@ module.exports = function(app, db){
 
         res.header('Content-Type', 'text/json').send('Delete User: ' + req.params.email);
    };
+
+
+   // Actualizando un usuario, buscado por email y sin password
+   var updatePasswordUser = function(req, res){
+
+        var stmt = db.prepare("UPDATE user SET password = ? WHERE email = ?");
+
+        stmt.run([req.body.password, req.params.email], function(err, rows){
+
+          console.log('POST - update User with data = \n {' + '\n email : ' + req.params.email + '\n password : ' + req.body.password +'\n }');
+
+          res.header('Access-Control-Allow-Origin', '*');
+          res.header('Access-Control-Allow-Methods', 'POST, PUT');
+          res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, *');
+
+          if(err){
+            // Cuando genera un error la consulta
+            res.header('Content-Type', 'text/json').send({"error":err});
+      			} else{
+              db.get("SELECT * FROM user WHERE email = ?", [req.params.email], function(err, rows) {
+
+                if (rows) {
+
+                  console.log('POST - update User with data = \n {' + '\n email : ' + req.params.email + '\n password : ' + req.body.password + '\n }');
+
+                  rows.cookie = code.cookie;
+
+                  res.header('Content-Type', 'text/json').send(rows);
+
+                } else if (err) {
+
+                  res.header('Content-Type', 'text/json').send({"error":err});
+
+                } else {
+
+                  res.header('Content-Type', 'text/json').send({"error":400});
+                }
+
+              });
+      			}
+    		});
+   };
+
 	  //Links de las rutas y las funciones
 		// URI para crear usuario
 		app.post('/api/v1/user/create', createUser);
@@ -285,6 +328,8 @@ module.exports = function(app, db){
 	  app.get('/api/v1/user/:email/find', findUser);
 	  // URI para actualizar usuario
 	  app.post('/api/v1/user/:email/update', updateUser);
+    // URI para actualizar usuario
+	  app.post('/api/v1/user/:email/password', updatePasswordUser);
 	  // URI para eliminar usuario
 	  app.delete('/api/v1/user/:email/delete', deleteUser);
 

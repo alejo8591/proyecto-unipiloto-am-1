@@ -42,7 +42,7 @@ $(document).on('pagecreate', '#home', function(){
 			console.log('sessionStorage `#home` OK');
 
 			/* Uso del API para traer la lista de los productos */
-			$.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
+			$.get('http://192.168.0.3:7070/api/v1/product/list', function(data){
 
 				$('#content-home-list-products').children().remove();
 
@@ -114,7 +114,7 @@ $(document).on('pagecreate', '#login', function(){
 				var email = $('#email-login').val();
 				var password = $('#password-login').val();
 
-				$.post('http://192.168.0.2:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
+				$.post('http://192.168.0.3:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
 
 			          if (Object.keys(data).indexOf("error") === 0) {
 
@@ -136,7 +136,7 @@ $(document).on('pagecreate', '#login', function(){
 										window.localStorage.setItem('phone', data.phone);
 
 
-				            $.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
+				            $.get('http://192.168.0.3:7070/api/v1/product/list', function(data){
 
 				              console.log(data.length);
 
@@ -196,7 +196,7 @@ $(document).on('pagecreate', '#register', function(){
 				var phone = $('#phone-register').val();
 				var password = $('#password-register').val();
 
-				$.post('http://192.168.0.2:7070/api/v1/user/create',
+				$.post('http://192.168.0.3:7070/api/v1/user/create',
 
 				{
 					"email":email,
@@ -256,16 +256,10 @@ $(document).on('pagecreate', '#forgot-password', function(){
 
 				var email = $('#email-forgot-password').val();
 				var password = $('#password-forgot-password').val();
-				var firstname = window.localStorage.getItem('firstname');
-				var lastname = window.localStorage.getItem('lastname');
-				var phone = window.localStorage.getItem('phone');
 
-				$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
+				$.post('http://192.168.0.3:7070/api/v1/user/' + email + '/password',
 					{
-						"password":password,
-						"firstname":firstname,
-						"lastname":lastname,
-						"phone":phone
+						"password":password
 					},
 					function(data){
 
@@ -342,7 +336,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 							var lastname = $('#lastname-profile-detail').val();
 							var phone = $('#phone-profile-detail').val();
 
-							$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
+							$.post('http://192.168.0.3:7070/api/v1/user/' + email + '/update',
 								{
 									"password":password,
 									"firstname":firstname,
