@@ -4,37 +4,26 @@ var WebStorage = function(){};
 WebStorage.prototype.sessionStorageSupported = function(){
 
 	try{
-
 		return 'sessionStorage' in window && window['sessionStorage'] !== null;
-
 	} catch(error){
-
 		return false;
-
 	}
 };
 
 WebStorage.prototype.localStorageSupported = function(){
 
 	try{
-
 		return 'localStorage' in window && window['localStorage'] !== null;
-
 	} catch(error){
-
 		return false;
-
 	}
 };
 
 WebStorage.prototype.sessionStorageCheck = function(){
 
 	try{
-
 		return window.sessionStorage.length >= 1;
-
 	} catch(error){
-
 		return false;
 
 	}
@@ -141,10 +130,10 @@ $(document).on('pagecreate', '#login', function(){
 
 				            window.sessionStorage.setItem('cookie', data.cookie);
 				            window.localStorage.setItem('email', data.email);
-							window.localStorage.setItem('firstname', data.firstname);
-							window.localStorage.setItem('lastname', data.lastname);
-							window.localStorage.setItem('password', data.password);
-							window.localStorage.setItem('phone', data.phone);
+										window.localStorage.setItem('firstname', data.firstname);
+										window.localStorage.setItem('lastname', data.lastname);
+										window.localStorage.setItem('password', data.password);
+										window.localStorage.setItem('phone', data.phone);
 
 
 				            $.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
@@ -266,13 +255,9 @@ $(document).on('pagecreate', '#forgot-password', function(){
 			if (buttonIndex === 1){
 
 				var email = $('#email-forgot-password').val();
-
 				var password = $('#password-forgot-password').val();
-
 				var firstname = window.localStorage.getItem('firstname');
-
 				var lastname = window.localStorage.getItem('lastname');
-
 				var phone = window.localStorage.getItem('phone');
 
 				$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
@@ -328,11 +313,8 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 			console.log(window.localStorage.getItem('email'));
 
 			$('#email-profile-detail').val(window.localStorage.getItem('email'));
-
 			$('#firstname-profile-detail').val(window.localStorage.getItem('firstname'));
-
 			$('#lastname-profile-detail').val(window.localStorage.getItem('lastname'));
-
 			$('#phone-profile-detail').val(window.localStorage.getItem('phone'));
 
 
@@ -343,9 +325,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 						$('#phone-profile-detail').attr('disabled') === 'disabled') {
 
 					$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').removeAttr('disabled');
-
 					$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').parent().removeClass('ui-state-disabled');
-
 					$('#email-profile-detail').attr('disabled', 'disabled');
 
       		event.preventDefault();
@@ -357,13 +337,9 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 						if (buttonIndex === 1){
 
 							var email = window.localStorage.getItem('email');
-
 							var password = window.localStorage.getItem('password');
-
 							var firstname = $('#firstname-profile-detail').val();
-
 							var lastname = $('#lastname-profile-detail').val();
-
 							var phone = $('#phone-profile-detail').val();
 
 							$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
@@ -385,10 +361,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 									window.localStorage.setItem('phone', data.phone);
 
 									$('#email-profile-detail, #firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').attr('disabled', 'disabled');
-
 									$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').parent().addClass('ui-state-disabled');
-
-									$('body').pagecontainer('change', '#profile-detail');
 
 								}).fail(function(jqXHR, textStatus, error){
 
@@ -402,7 +375,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 						}
 					}
 
-					navigator.notification.confirm('Desea Aceptar el cambio de Contraseña', onConfirm, 'Cambio Contraseña', ['Aceptar', 'Cancelar']);
+					navigator.notification.confirm('Aceptar el cambio de información', onConfirm, 'Actualizar Info', ['Aceptar', 'Cancelar']);
 
 					event.preventDefault();
 			}
