@@ -10,8 +10,5 @@
         "name": "Apache Cordova Team",
         "url": "http://cordova.io"
     },
-    "icons": {
-        "60": "/icon/icon-60.png",
-        "128": "/icon/icon-128.png"
-    }
+    "icons": {}
 }

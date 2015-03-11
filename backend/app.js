@@ -85,5 +85,3 @@ app.set('port', process.env.PORT || 7070);
 var server = app.listen(app.get('port'), function() {
   debug('Express escucha por el puerto ' + server.address().port);
 });
-
-//app.listen(app.get('port'), '192.168.0.2');

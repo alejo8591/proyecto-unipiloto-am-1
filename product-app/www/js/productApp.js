@@ -184,6 +184,7 @@ $(document).on('pagecreate', '#login', function(){
 
 });
 
+
 $(document).on('pagecreate', '#register', function(){
 
 	var webStorage = new WebStorage();
@@ -255,6 +256,7 @@ $(document).on('pagecreate', '#register', function(){
 	}
 });
 
+
 $(document).on('pagecreate', '#forgot-password', function(){
 
 	$('#button-forgot-password').bind('click', function(event){
@@ -273,13 +275,12 @@ $(document).on('pagecreate', '#forgot-password', function(){
 
 				var phone = window.localStorage.getItem('phone');
 
-				$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update', 
+				$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
 					{
 						"password":password,
 						"firstname":firstname,
 						"lastname":lastname,
 						"phone":phone
-
 					},
 					function(data){
 
@@ -308,5 +309,116 @@ $(document).on('pagecreate', '#forgot-password', function(){
 		navigator.notification.confirm('Desea Aceptar el cambio de Contraseña', onConfirm, 'Cambio Contraseña', ['Aceptar', 'Cancelar']);
 
 	});
+
+});
+
+
+$(document).on('pagecreate', '#profile-detail', function(event){
+
+	event.preventDefault();
+
+	webStorage = new WebStorage();
+
+	if (webStorage.sessionStorageSupported()){
+
+		console.log('sessionStorage support OK');
+
+		if (webStorage.sessionStorageCheck()){
+
+			console.log(window.localStorage.getItem('email'));
+
+			$('#email-profile-detail').val(window.localStorage.getItem('email'));
+
+			$('#firstname-profile-detail').val(window.localStorage.getItem('firstname'));
+
+			$('#lastname-profile-detail').val(window.localStorage.getItem('lastname'));
+
+			$('#phone-profile-detail').val(window.localStorage.getItem('phone'));
+
+
+			$('#button-profile-detail').bind('click', function(event){
+
+				if ($('#firstname-profile-detail').attr('disabled') === 'disabled' ||
+				    $('#lastname-profile-detail').attr('disabled') === 'disabled' ||
+						$('#phone-profile-detail').attr('disabled') === 'disabled') {
+
+					$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').removeAttr('disabled');
+
+					$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').parent().removeClass('ui-state-disabled');
+
+					$('#email-profile-detail').attr('disabled', 'disabled');
+
+      		event.preventDefault();
+
+				} else {
+
+					var onConfirm = function(buttonIndex){
+
+						if (buttonIndex === 1){
+
+							var email = window.localStorage.getItem('email');
+
+							var password = window.localStorage.getItem('password');
+
+							var firstname = $('#firstname-profile-detail').val();
+
+							var lastname = $('#lastname-profile-detail').val();
+
+							var phone = $('#phone-profile-detail').val();
+
+							$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
+								{
+									"password":password,
+									"firstname":firstname,
+									"lastname":lastname,
+									"phone":phone
+								},
+								function(data){
+
+									console.log(data);
+
+									window.sessionStorage.setItem('cookie', data.cookie);
+							 		window.localStorage.setItem('email', data.email);
+									window.localStorage.setItem('firstname', data.firstname);
+									window.localStorage.setItem('lastname', data.lastname);
+									window.localStorage.setItem('password', data.password);
+									window.localStorage.setItem('phone', data.phone);
+
+									$('#email-profile-detail, #firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').attr('disabled', 'disabled');
+
+									$('#firstname-profile-detail, #lastname-profile-detail, #phone-profile-detail').parent().addClass('ui-state-disabled');
+
+									$('body').pagecontainer('change', '#profile-detail');
+
+								}).fail(function(jqXHR, textStatus, error){
+
+							 	console.log(textStatus, error);
+							 });
+
+						} else {
+
+							$('#content-forgot-password-form').trigger('reset');
+
+						}
+					}
+
+					navigator.notification.confirm('Desea Aceptar el cambio de Contraseña', onConfirm, 'Cambio Contraseña', ['Aceptar', 'Cancelar']);
+
+					event.preventDefault();
+			}
+
+		});
+
+		} else {
+
+			console.log('Cambiando de Pagina');
+
+			$('body').pagecontainer('change', '#options');
+		}
+
+	} else {
+
+		console.log('No soporta sessionStorage :(');
+	}
 
 });

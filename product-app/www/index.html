@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.4.min.css" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.4.4.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons-1.4.4.min.css" />        
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons-1.4.4.min.css" />
         <title>Product App</title>
     </head>
     <body>
@@ -26,12 +26,12 @@
             <div data-role="header" data-position="inline" id="header-home">
                 <a href="#" data-icon="back" data-rel="back" class="ui-btn ui-icon-back ui-shadow ui-corner-all ui-btn-icon-notext"></a>
                 <h1>ProductApp</h1>
-                <a href="#menu-home" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>  
+                <a href="#menu-home" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>
             </div>
             <div data-role="content" id="content-home">
                 <ul data-role="listview" id="content-home-list-products" data-filter="true" data-filter-placeholder="Buscar Producto..." data-inset="true"></ul>
             </div>
-            <div data-role="footer" data-position="fixed" id="footer-homer">
+            <div data-role="footer" data-position="fixed" id="footer-home">
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home" class="ui-btn-active">Home</a></li>
@@ -84,19 +84,19 @@
                 <h1>Registro de Usuario</h1>
             </div>
             <div data-role="content" id="content-register">
-                <form id="content-register-form">
-                    <label for="email-register">Email</label>
-                    <input type="email" name="email-register" id="email-register" />
-                    <label for="firstname-register">Nombre</label>
-                    <input type="text" name="firstname-register" id="firstname-register" />
-                    <label for="lastname-register">Apellido(s)</label>
-                    <input type="text" name="lastname-register" id="lastname-register" />
-                    <label for="phone-register">Teléfono</label>
-                    <input type="text" name="phone-register" id="phone-register" />
-                    <label for="password-register">Password</label>
-                    <input type="password" name="password-register" id="password-register" />
-                    <button class="ui-btn ui-shadow ui-corner-all ui-btn-b" id="button-register">¡Registrarme!</button>
-                </form>
+              <form id="content-register-form">
+                  <label for="email-register">Email</label>
+                  <input type="email" name="email-register" id="email-register" />
+                  <label for="firstname-register">Nombre</label>
+                  <input type="text" name="firstname-register" id="firstname-register" />
+                  <label for="lastname-register">Apellido(s)</label>
+                  <input type="text" name="lastname-register" id="lastname-register" />
+                  <label for="phone-register">Teléfono</label>
+                  <input type="text" name="phone-register" id="phone-register" />
+                  <label for="password-register">Password</label>
+                  <input type="password" name="password-register" id="password-register" />
+                  <button class="ui-btn ui-shadow ui-corner-all ui-btn-b" id="button-register">¡Registrarme!</button>
+              </form>
             </div>
             <div data-role="footer" data-position="fixed" id="footer-register">
             </div>
@@ -117,6 +117,45 @@
                 </form>
             </div>
             <div data-role="footer" data-position="fixed" id="footer-forgot-password">
+            </div>
+        </div>
+
+        <!-- ********* START: PROFILE ********* -->
+        <!-- home -->
+        <div data-role="page" id="profile-detail">
+            <div data-role="panel" id="menu-profile-detail">
+                <ul data-role="listview">
+                    <li><a href="#home" data-icon="grid">Home</a></li>
+                    <li><a href="#profile-detail" data-icon="star">Perfil</a></li>
+                    <li><a href="#products" data-icon="gear">Productos</a></li>
+                </ul>
+            </div>
+            <div data-role="header" data-position="inline" id="header-profile-detail">
+                <a href="#" data-icon="back" data-rel="back" class="ui-btn ui-icon-back ui-shadow ui-corner-all ui-btn-icon-notext"></a>
+                <h1>Profile</h1>
+                <a href="#menu-profile-detail" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>
+            </div>
+            <div data-role="content" id="content-profile-detail">
+              <form id="content-profile-detail-form">
+                  <label for="email-register" class="ui-hidden-accessible">Email</label>
+                  <input disabled="disabled" type="email" name="email-profile-detail" id="email-profile-detail" />
+                  <label for="firstname-profile-detail" class="ui-hidden-accessible">Nombre</label>
+                  <input disabled="disabled" type="text" name="firstname-profile-detail" id="firstname-profile-detail" />
+                  <label for="lastname-profile-detail" class="ui-hidden-accessible">Apellido(s)</label>
+                  <input disabled="disabled" type="text" name="lastname-profile-detail" id="lastname-profile-detail" />
+                  <label for="phone-profile-detail" class="ui-hidden-accessible">Teléfono</label>
+                  <input disabled="disabled" type="text" name="phone-profile-detail" id="phone-profile-detail" />
+                  <button class="ui-btn ui-btn-inline ui-btn-b" id="button-profile-detail">Editar</button>
+              </form>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-profile-detail">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#profile-detail" class="ui-btn-active">Perfil</a></li>
+                        <li><a href="#products">Productos</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
         <!-- *********** END: LOGIN & REGISTER ************ -->
