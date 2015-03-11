@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.4.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.4.4.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons-1.4.4.min.css" />        
+        <title>Product App</title>
+    </head>
+    <body>
+        <!-- ********* START: HOME ********* -->
+        <!-- home -->
+        <div data-role="page" id="home">
+            <div data-role="panel" id="menu-home">
+                <ul data-role="listview">
+                    <li><a href="#home" data-icon="grid">Home</a></li>
+                    <li><a href="#profile-detail" data-icon="star">Perfil</a></li>
+                    <li><a href="#products" data-icon="gear">Productos</a></li>
+                </ul>
+            </div>
+            <div data-role="header" data-position="inline" id="header-home">
+                <a href="#" data-icon="back" data-rel="back" class="ui-btn ui-icon-back ui-shadow ui-corner-all ui-btn-icon-notext"></a>
+                <h1>ProductApp</h1>
+                <a href="#menu-home" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>  
+            </div>
+            <div data-role="content" id="content-home">
+                <ul data-role="listview" id="content-home-list-products" data-filter="true" data-filter-placeholder="Buscar Producto..." data-inset="true"></ul>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-homer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home" class="ui-btn-active">Home</a></li>
+                        <li><a href="#profile-detail">Perfil</a></li>
+                        <li><a href="#products">Productos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- *************** END: HOME ***************** -->
+
+        <!-- ********* START: LOGIN & REGISTER ********* -->
+        <!-- options -->
+        <div data-role="page" id="options" data-theme="a">
+            <div data-role="header" data-position="inline" id="header-options">
+                <h1>Opciones</h1>
+            </div>
+            <div data-role="content" id="content-options">
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-options">
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div data-role="page" id="login" data-theme="a">
+            <div data-role="header" data-position="inline" id="header-login">
+                <h1>Ingreso</h1>
+            </div>
+            <div data-role="content" id="content-login">
+                <form id="content-login-form">
+                    <label for="email-login">Email</label>
+                    <input type="email" name="email-login" id="email-login" placeholder="Correo Electrónico" />
+                    <label for="password-login">Password</label>
+                    <input type="password" name="password-login" id="password-login" placeholder="Contraseña" autocomplete="off" />
+                    <button class="ui-btn ui-shadow ui-corner-all ui-btn-b" id="button-access">¡Ingresar!</button>
+                </form>
+                <div class="ui-grid-solo">
+                    <div class="ui-block-a">
+                        <a href="#forgot-password" class="ui-shadow ui-btn ui-corner-all">¡Recuperar Contraseña</a>
+                    </div>
+                </div>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-login">
+            </div>
+        </div>
+
+        <!-- register -->
+        <div data-role="page" id="register" data-theme="a">
+            <div data-role="header" data-position="inline" id="header-register">
+                <h1>Registro de Usuario</h1>
+            </div>
+            <div data-role="content" id="content-register">
+                <form id="content-register-form">
+                    <label for="email-register">Email</label>
+                    <input type="email" name="email-register" id="email-register" />
+                    <label for="firstname-register">Nombre</label>
+                    <input type="text" name="firstname-register" id="firstname-register" />
+                    <label for="lastname-register">Apellido(s)</label>
+                    <input type="text" name="lastname-register" id="lastname-register" />
+                    <label for="phone-register">Teléfono</label>
+                    <input type="text" name="phone-register" id="phone-register" />
+                    <label for="password-register">Password</label>
+                    <input type="password" name="password-register" id="password-register" />
+                    <button class="ui-btn ui-shadow ui-corner-all ui-btn-b" id="button-register">¡Registrarme!</button>
+                </form>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-register">
+            </div>
+        </div>
+
+        <!-- forgot-password -->
+        <div data-role="page" id="forgot-password" data-theme="a">
+            <div data-role="header" data-position="inline" id="header-forgot-password">
+                <h1>Cambio Password</h1>
+            </div>
+            <div data-role="content" id="content-forgot-password">
+                <form id="content-forgot-password-form">
+                    <label for="email-forgot-password">Email</label>
+                    <input type="email" name="email-forgot-password" id="email-forgot-password" placeholder="Correo Electrónico" />
+                    <label for="password-forgot-password">Password</label>
+                    <input type="password" name="password-forgot-password" id="password-forgot-password" placeholder="Contraseña" autocomplete="off" />
+                    <button class="ui-btn ui-shadow ui-corner-all ui-btn-b" id="button-forgot-password">¡Cambiar!</button>
+                </form>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-forgot-password">
+            </div>
+        </div>
+        <!-- *********** END: LOGIN & REGISTER ************ -->
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.4.min.js"></script>
+        <script type="text/javascript" src="js/lawnchair-0.6.1.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/productApp.js"></script>
+    </body>
+</html>
