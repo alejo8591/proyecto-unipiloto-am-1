@@ -397,9 +397,9 @@ module.exports = function(app, db){
         res.header('Access-Control-Allow-Methods', 'POST');
         res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, *');
 
-   			var stmt = db.prepare("INSERT INTO product (name, type, amount) VALUES (?, ?, ?)");
+   			var stmt = db.prepare("INSERT INTO product (name, type, quantity, amount) VALUES (?, ?, ?, ?)");
 
-        stmt.run([req.body.name, req.body.type, req.body.amount], function(rows, err){
+        stmt.run([req.body.name, req.body.type, req.body.quantity, req.body.amount], function(rows, err){
 
           if(err){
             // Cuando genera un error la consulta
@@ -428,15 +428,15 @@ module.exports = function(app, db){
 	// Actualizando producto por id
   var updateProduct = function(req, res){
 
-        console.log('PUT - update Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n amount : ' + req.body.amount + '\n }');
+        console.log('PUT - update Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n quantity : ' + req.body.quantity + '\n amount : ' + req.body.amount + '\n }');
 
         res.set('Access-Control-Allow-Origin', '*');
         res.set('Access-Control-Allow-Methods', 'POST');
         res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
 
-         var stmt = db.prepare("UPDATE product SET name = ?, type = ?, amount = ? WHERE id = ?");
+         var stmt = db.prepare("UPDATE product SET name = ?, type = ?, quantity=?, amount = ? WHERE id = ?");
 
-        stmt.run([req.body.name, req.body.type, req.body.amount, req.params.id], function(rows, err){
+        stmt.run([req.body.name, req.body.type, req.body.quantity, req.body.amount, req.params.id], function(rows, err){
 
           if(err){
             // Cuando genera un error la consulta
@@ -448,7 +448,7 @@ module.exports = function(app, db){
 
               if (rows) {
 
-                console.log('POST - Update Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n amount : ' + req.body.amount + '\n }');
+                console.log('POST - Update Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n quantity : ' + req.body.quantity + '\n amount : ' + req.body.amount + '\n }');
 
                 res.header('Content-Type', 'text/json').send(rows);
 

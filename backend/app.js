@@ -40,7 +40,7 @@ db.serialize(function() {
     // Creando tabla de usuarios => "user"
     db.run("CREATE TABLE IF NOT EXISTS user (id integer primary key autoincrement, email text, password text, firstname text, lastname text, phone text)");
     // Creando tabla de productos "product"
-    db.run("CREATE TABLE IF NOT EXISTS product (id integer primary key autoincrement, name text, type text, amount text)");
+    db.run("CREATE TABLE IF NOT EXISTS product (id integer primary key autoincrement, name text, type text, quantity real, amount real)");
     db.get("SELECT * FROM user WHERE email = 'admin@admin.com'", function(err, rows) {
       if(rows){
         console.log(rows);
@@ -50,9 +50,9 @@ db.serialize(function() {
         var stmt = db.prepare("INSERT INTO user (email, password, firstname, lastname, phone) VALUES (?, ?, ?, ?, ?)");
         // Ingresando datos de prueba para User
         stmt.run("admin@admin.com", "admin", "admin", "server", "1234566775");
-        var stmt = db.prepare("INSERT INTO product (name, type, amount) VALUES (?, ?, ?)");
+        var stmt = db.prepare("INSERT INTO product (name, type, quantity, amount) VALUES (?, ?, ?, ?)");
         // Ingresando datos de prueba para Product
-        stmt.run("Motorola", "Telefono Móvil", "50");
+        stmt.run("Motorola", "Telefono Móvil", 100.0, 567000.0);
         stmt.finalize();
       }
     });

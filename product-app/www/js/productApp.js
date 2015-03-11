@@ -25,7 +25,6 @@ WebStorage.prototype.sessionStorageCheck = function(){
 		return window.sessionStorage.length >= 1;
 	} catch(error){
 		return false;
-
 	}
 };
 
@@ -153,9 +152,8 @@ $(document).on('pagecreate', '#login', function(){
 				            }).fail(function(jqXHR, textStatus, errorThrown){
 				              // console.log(error.statusCode);
 				              console.log(textStatus, errorThrown);
-				           });
-	          		    }
-
+				          });
+	          	 }
 
 	        }).fail(function(error){
 	          console.log(error);
