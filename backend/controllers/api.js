@@ -333,7 +333,7 @@ module.exports = function(app, db){
 	  // URI para eliminar usuario
 	  app.delete('/api/v1/user/:email/delete', deleteUser);
 
-  // --------------------------- API V1 para el modelo "Product" --------------------------------------- //
+// --------------------------- API V1 para el modelo "Product" --------------------------------------- //
 
 	// Buscando todos los productos y retornando
 	var findAllProducts = function(req, res){
@@ -391,7 +391,7 @@ module.exports = function(app, db){
 	// Crendo producto con todos los campos especificos
   var createProduct = function(req, res){
 
-        console.log('POST - save Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n amount : ' + req.body.amount + '\n }');
+        console.log('POST - save Product with data = \n {' + '\n name : ' + req.body.name + '\n type : ' + req.body.type + '\n amount : ' + req.body.amount + + req.body.type + '\n quantity : ' + req.body.quantity + '\n }');
 
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'POST');

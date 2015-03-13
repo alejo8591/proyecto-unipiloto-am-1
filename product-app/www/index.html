@@ -160,6 +160,43 @@
         <!-- *********** END: PROFILE ************ -->
 
         <!-- ********* START: PRODUCT ********* -->
+        <!-- Product Create -->
+        <div data-role="page" id="product-create">
+            <div data-role="panel" id="menu-product-create">
+                <ul data-role="listview">
+                    <li><a href="#home" data-icon="grid">Home</a></li>
+                    <li><a href="#profile-create" data-icon="star">Perfil</a></li>
+                    <li><a href="#about" data-icon="gear">About</a></li>
+                </ul>
+            </div>
+            <div data-role="header" data-position="inline" id="header-product-create">
+                <a href="#" data-icon="back" data-rel="back" class="ui-btn ui-icon-back ui-shadow ui-corner-all ui-btn-icon-notext"></a>
+                <h1>Producto</h1>
+                <a href="#menu-product-create" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>
+            </div>
+            <div data-role="content" id="content-product-create">
+              <form id="content-product-create-form">
+                  <label for="name-product-create" class="ui-hidden-accessible">Nombre</label>
+                  <input type="text" name="name-product-create" id="name-product-create" placeholder="Nombre del Producto" />
+                  <label for="type-product-create" class="ui-hidden-accessible">Tipo de Producto</label>
+                  <input type="text" name="type-product-create" id="type-product-create" placeholder="Tipo de Producto" />
+                  <label for="quantity-product-create" class="ui-hidden-accessible">Cantidad</label>
+                  <input type="number" name="quantity-product-create" id="quantity-product-create" placeholder="Cantidad del Producto" />
+                  <label for="amount-product-create" class="ui-hidden-accessible">Precio</label>
+                  <input type="number" name="amount-product-create" id="amount-product-create" placeholder="Valor del Producto" />
+                  <button class="ui-btn ui-btn-a" id="button-product-create">Crear</button>
+              </form>
+            </div>
+            <div data-role="footer" data-position="fixed" id="footer-product-create">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#product-create">Crear Producto</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- Product Detail -->
         <div data-role="page" id="product-detail">
             <div data-role="panel" id="menu-product-detail">
@@ -189,43 +226,6 @@
               </form>
             </div>
             <div data-role="footer" data-position="fixed" id="footer-product-detail">
-                <div data-role="navbar">
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#product-create">Crear Producto</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Create -->
-        <div data-role="page" id="product-create">
-            <div data-role="panel" id="menu-product-create">
-                <ul data-role="listview">
-                    <li><a href="#home" data-icon="grid">Home</a></li>
-                    <li><a href="#profile-create" data-icon="star">Perfil</a></li>
-                    <li><a href="#about" data-icon="gear">About</a></li>
-                </ul>
-            </div>
-            <div data-role="header" data-position="inline" id="header-product-create">
-                <a href="#" data-icon="back" data-rel="back" class="ui-btn ui-icon-back ui-shadow ui-corner-all ui-btn-icon-notext"></a>
-                <h1>Producto</h1>
-                <a href="#menu-product-create" class="ui-btn ui-icon-bullets ui-shadow ui-corner-all ui-btn-icon-notext"></a>
-            </div>
-            <div data-role="content" id="content-product-create">
-              <form id="content-product-create-form">
-                  <label for="name-product-create" class="ui-hidden-accessible">Nombre</label>
-                  <input type="text" name="name-product-create" id="name-product-create" placeholder="Nombre del Producto" />
-                  <label for="type-product-create" class="ui-hidden-accessible">Tipo de Producto</label>
-                  <input type="text" name="type-product-create" id="type-product-create" placeholder="Tipo de Producto" />
-                  <label for="quantity-product-create" class="ui-hidden-accessible">Cantidad</label>
-                  <input type="text" name="quantity-product-create" id="quantity-product-create" placeholder="Cantidad del Producto" />
-                  <label for="amount-product-create" class="ui-hidden-accessible">Precio</label>
-                  <input type="text" name="amount-product-create" id="amount-product-create" placeholder="Valor del Producto" />
-                  <button class="ui-btn ui-btn-a" id="button-product-create">Crear</button>
-              </form>
-            </div>
-            <div data-role="footer" data-position="fixed" id="footer-product-create">
                 <div data-role="navbar">
                     <ul>
                         <li><a href="#home">Home</a></li>

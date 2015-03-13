@@ -2,7 +2,6 @@
 var WebStorage = function(){};
 
 WebStorage.prototype.sessionStorageSupported = function(){
-
 	try{
 		return 'sessionStorage' in window && window['sessionStorage'] !== null;
 	} catch(error){
@@ -11,7 +10,6 @@ WebStorage.prototype.sessionStorageSupported = function(){
 };
 
 WebStorage.prototype.localStorageSupported = function(){
-
 	try{
 		return 'localStorage' in window && window['localStorage'] !== null;
 	} catch(error){
@@ -20,17 +18,17 @@ WebStorage.prototype.localStorageSupported = function(){
 };
 
 WebStorage.prototype.sessionStorageCheck = function(){
-
 	try{
 		return window.sessionStorage.length >= 1;
 	} catch(error){
 		return false;
-
 	}
 };
 
+
 $(document).on('pagecreate', '#home', function(){
-	webStorage = new WebStorage();
+
+	var webStorage = new WebStorage();
 
 	/* Verificando soporte para sessionStorage en el contenedor web */
 	if (webStorage.sessionStorageSupported()){
@@ -42,7 +40,7 @@ $(document).on('pagecreate', '#home', function(){
 			console.log('sessionStorage `#home` OK');
 
 			/* Uso del API para traer la lista de los productos */
-			$.get('http://192.168.0.3:7070/api/v1/product/list', function(data){
+			$.get('http://192.168.0.6:7070/api/v1/product/list', function(data){
 
 				$('#content-home-list-products').children().remove();
 
@@ -71,6 +69,7 @@ $(document).on('pagecreate', '#home', function(){
 	}
 });
 
+
 $(document).on('pagecreate', '#options', function(){
 
 	var webStorage = new WebStorage();
@@ -95,6 +94,7 @@ $(document).on('pagecreate', '#options', function(){
 	}
 });
 
+
 $(document).on('pagecreate', '#login', function(){
 
 	var webStorage = new WebStorage();
@@ -114,7 +114,7 @@ $(document).on('pagecreate', '#login', function(){
 				var email = $('#email-login').val();
 				var password = $('#password-login').val();
 
-				$.post('http://192.168.0.3:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
+				$.post('http://192.168.0.6:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
 
 			          if (Object.keys(data).indexOf("error") === 0) {
 
@@ -136,7 +136,7 @@ $(document).on('pagecreate', '#login', function(){
 										window.localStorage.setItem('phone', data.phone);
 
 
-				            $.get('http://192.168.0.3:7070/api/v1/product/list', function(data){
+				            $.get('http://192.168.0.6:7070/api/v1/product/list', function(data){
 
 				              console.log(data.length);
 
@@ -153,16 +153,13 @@ $(document).on('pagecreate', '#login', function(){
 				            }).fail(function(jqXHR, textStatus, errorThrown){
 				              // console.log(error.statusCode);
 				              console.log(textStatus, errorThrown);
-				           });
-	          		    }
-
-
+				          });
+	          	 }
 	        }).fail(function(error){
 	          console.log(error);
 	        });
 
 	        event.preventDefault();
-
 			});
 		}
 
@@ -170,7 +167,6 @@ $(document).on('pagecreate', '#login', function(){
 
 		console.log('No soporta sessionStorage :(');
 	}
-
 });
 
 
@@ -196,37 +192,37 @@ $(document).on('pagecreate', '#register', function(){
 				var phone = $('#phone-register').val();
 				var password = $('#password-register').val();
 
-				$.post('http://192.168.0.3:7070/api/v1/user/create',
+				$.post('http://192.168.0.6:7070/api/v1/user/create',
 
-				{
-					"email":email,
-					"firstname":firstname,
-					"lastname":lastname,
-					"phone":phone,
-					"password":password
-				}
-				 ,function(data){
+					{
+						"email":email,
+						"firstname":firstname,
+						"lastname":lastname,
+						"phone":phone,
+						"password":password
+					}
+				 , function(data){
 
-				 	if(Object.keys(data).indexOf('error') === 0){
+					 	if(Object.keys(data).indexOf('error') === 0){
 
-				 		var onAlert = function(){
+					 		var onAlert = function(){
 
-				 			$('#content-register-form').trigger('reset');
-				 		};
+					 			$('#content-register-form').trigger('reset');
+					 		};
 
-				 		navigator.notification.alert('Algo salio mal revisa el Formulario', onAlert, '¡Error!', 'Aceptar');
+					 		navigator.notification.alert('Algo salio mal revisa el Formulario', onAlert, '¡Error!', 'Aceptar');
 
-				 	} else {
+					 	} else {
 
-				 		window.sessionStorage.setItem('cookie', data.cookie);
-				 		window.localStorage.setItem('email', data.email);
-						window.localStorage.setItem('firstname', data.firstname);
-						window.localStorage.setItem('lastname', data.lastname);
-						window.localStorage.setItem('password', data.password);
-						window.localStorage.setItem('phone', data.phone);
+					 		window.sessionStorage.setItem('cookie', data.cookie);
+					 		window.localStorage.setItem('email', data.email);
+							window.localStorage.setItem('firstname', data.firstname);
+							window.localStorage.setItem('lastname', data.lastname);
+							window.localStorage.setItem('password', data.password);
+							window.localStorage.setItem('phone', data.phone);
 
-						$('body').pagecontainer('change', '#home');
-				 	}
+							$('body').pagecontainer('change', '#home');
+					 	}
 
 				 }).fail(function(jqXHR, textStatus, error){
 
@@ -234,14 +230,11 @@ $(document).on('pagecreate', '#register', function(){
 				 });
 
 				 event.preventDefault();
-
 			});
 		}
-
 	} else {
 
 		console.log('No soporta sessionStorage :(');
-
 	}
 });
 
@@ -257,7 +250,7 @@ $(document).on('pagecreate', '#forgot-password', function(){
 				var email = $('#email-forgot-password').val();
 				var password = $('#password-forgot-password').val();
 
-				$.post('http://192.168.0.3:7070/api/v1/user/' + email + '/password',
+				$.post('http://192.168.0.6:7070/api/v1/user/' + email + '/password',
 					{
 						"password":password
 					},
@@ -286,9 +279,7 @@ $(document).on('pagecreate', '#forgot-password', function(){
 		};
 
 		navigator.notification.confirm('Desea Aceptar el cambio de Contraseña', onConfirm, 'Cambio Contraseña', ['Aceptar', 'Cancelar']);
-
 	});
-
 });
 
 
@@ -296,7 +287,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 
 	event.preventDefault();
 
-	webStorage = new WebStorage();
+	var webStorage = new WebStorage();
 
 	if (webStorage.sessionStorageSupported()){
 
@@ -336,7 +327,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 							var lastname = $('#lastname-profile-detail').val();
 							var phone = $('#phone-profile-detail').val();
 
-							$.post('http://192.168.0.3:7070/api/v1/user/' + email + '/update',
+							$.post('http://192.168.0.6:7070/api/v1/user/' + email + '/update',
 								{
 									"password":password,
 									"firstname":firstname,
@@ -373,7 +364,6 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 
 					event.preventDefault();
 			}
-
 		});
 
 		} else {
@@ -384,8 +374,164 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 		}
 
 	} else {
-
 		console.log('No soporta sessionStorage :(');
 	}
+});
 
+
+$(document).on('pagecreate', '#product-create', function(){
+
+	var webStorage = new WebStorage();
+
+	if (webStorage.sessionStorageSupported()){
+
+		console.log('sessionStorage support OK');
+
+		if(webStorage.sessionStorageCheck()){
+
+			console.log('sessionStorage `#button-product-create` OK');
+
+		} else {
+
+			$('#button-product-create').bind('click', function(event){
+
+				var name = $('#name-product-create').val();
+				var type = $('#type-product-create').val();
+				var quantity = $('#quantity-product-create').val();
+				var amount = $('#amount-product-create').val();
+
+				$.post('http://192.168.0.6:7070/api/v1/product/create',
+					{
+						"name":name,
+						"type":type,
+						"quantity":quantity,
+						"amount":amount
+					}
+				 , function(data){
+
+					 	if(Object.keys(data).indexOf('error') === 0){
+
+					 		var onAlert = function(){
+
+					 			$('#content-register-form').trigger('reset');
+					 		};
+
+					 		navigator.notification.alert('Algo salio mal revisa el Formulario', onAlert, '¡Error!', 'Aceptar');
+
+					 	} else {
+
+					 		window.localStorage.setItem('name', data.name);
+					 		window.localStorage.setItem('type', data.type);
+							window.localStorage.setItem('quantity', data.quantity);
+							window.localStorage.setItem('amount', data.amount);
+							window.localStorage.setItem('product_id', data.id);
+
+							$('body').pagecontainer('change', '#product-detail');
+					 	}
+
+				 }).fail(function(jqXHR, textStatus, error){
+
+				 	console.log(textStatus, error);
+				 });
+
+				 event.preventDefault();
+			});
+		}
+	} else {
+		console.log('No soporta sessionStorage :(');
+	}
+});
+
+
+$(document).on('pagecreate', '#product-detail', function(event){
+
+	event.preventDefault();
+
+	var webStorage = new WebStorage();
+
+	if (webStorage.sessionStorageSupported()){
+
+		console.log('sessionStorage support OK');
+
+		if (webStorage.sessionStorageCheck()){
+
+			console.log(window.localStorage.getItem('email'));
+
+			$('#name-product-detail').val(window.localStorage.getItem('name'));
+			$('#type-product-detail').val(window.localStorage.getItem('type'));
+			$('#quantity-product-detail').val(window.localStorage.getItem('quantity'));
+			$('#amount-product-detail').val(window.localStorage.getItem('amount'));
+
+
+			$('#button-product-detail').bind('click', function(event){
+
+				if ($('#name-product-detail').attr('disabled') === 'disabled' ||
+				    $('#type-product-detail').attr('disabled') === 'disabled' ||
+						$('#quantity-product-detail').attr('disabled') === 'disabled' ||
+						$('#amount-product-detail').attr('disabled') === 'disabled') {
+
+					$('#name-product-detail, #type-product-detail, #quantity-product-detail, #amount-product-detail').removeAttr('disabled');
+					$('#name-product-detail, #type-product-detail, #quantity-product-detail, #amount-product-detail').parent().removeClass('ui-state-disabled');
+
+      		event.preventDefault();
+
+				} else {
+
+					var onConfirm = function(buttonIndex){
+
+						if (buttonIndex === 1){
+
+							var name = $('#name-product-detail').val();
+							var type = $('#type-product-detail').val();
+							var quantity = $('#quantity-product-detail').val();
+							var amount = $('#amount-product-detail').val();
+							var id =  window.localStorage.getItem('product_id');
+
+							$.post('http://192.168.0.6:7070/api/v1/product/' + id + '/update',
+								{
+									"name":name,
+									"type":type,
+									"quantity":quantity,
+									"amount":amount
+								},
+								function(data){
+
+									console.log(data);
+									window.localStorage.setItem('name', data.name);
+									window.localStorage.setItem('type', data.type);
+									window.localStorage.setItem('quantity', data.quantity);
+									window.localStorage.setItem('amount', data.amount);
+									window.localStorage.setItem('product_id', data.id);
+
+									$('#email-product-detail, #firstname-product-detail, #lastname-product-detail, #phone-product-detail').attr('disabled', 'disabled');
+									$('#firstname-product-detail, #lastname-product-detail, #phone-product-detail').parent().addClass('ui-state-disabled');
+
+								}).fail(function(jqXHR, textStatus, error){
+
+							 	console.log(textStatus, error);
+							 });
+
+						} else {
+
+							$('#content-forgot-password-form').trigger('reset');
+
+						}
+					}
+
+					navigator.notification.confirm('Aceptar el cambio de información', onConfirm, 'Actualizar Info', ['Aceptar', 'Cancelar']);
+
+					event.preventDefault();
+			}
+		});
+
+		} else {
+
+			console.log('Cambiando de Pagina');
+
+			$('body').pagecontainer('change', '#options');
+		}
+
+	} else {
+		console.log('No soporta sessionStorage :(');
+	}
 });
