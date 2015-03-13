@@ -1,3 +1,4 @@
+'use strict';
 /* Web Storage methods */
 var WebStorage = function(){};
 
@@ -26,7 +27,7 @@ WebStorage.prototype.sessionStorageCheck = function(){
 };
 
 
-$(document).on('pagecreate', '#home', function(){
+$.mobile.document.on('pagecreate', '#home', function(){
 
 	var webStorage = new WebStorage();
 
@@ -40,12 +41,12 @@ $(document).on('pagecreate', '#home', function(){
 			console.log('sessionStorage `#home` OK');
 
 			/* Uso del API para traer la lista de los productos */
-			$.get('http://192.168.0.6:7070/api/v1/product/list', function(data){
+			$.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
 
 				$('#content-home-list-products').children().remove();
 
 				for (var i = 0; i < data.length; i++) {
-					$('#content-home-list-products').append('<li><a href="#" id="product-' + data[i].id + '">' + data[i].name + '</a></li>');
+					$('#content-home-list-products').append('<li><a href="#" class="product-detail-page" data-product-id="' + data[i].id + '">' + data[i].name + '</a></li>');
 				}
 
 				$('#content-home-list-products').listview().listview('refresh');
@@ -54,6 +55,27 @@ $(document).on('pagecreate', '#home', function(){
 
 				console.log(jqXHR, textStatus, error);
 
+			});
+
+			$.mobile.document.on('click', '.product-detail-page', function(event){
+
+				console.log($(this).attr('data-product-id'));
+
+				$.get('http://192.168.0.2:7070/api/v1/product/'+ $(this).attr('data-product-id') +'/find', function(data){
+
+						window.localStorage.setItem('name', data.name);
+						window.localStorage.setItem('type', data.type);
+						window.localStorage.setItem('quantity', data.quantity);
+						window.localStorage.setItem('amount', data.amount);
+						window.localStorage.setItem('product_id', data.id);
+
+						$('body').pagecontainer('change', '#product-detail');
+
+				}).fail(function(jqXHR, textStatus, error){
+
+					console.log(jqXHR, textStatus, error);
+
+				});
 			});
 
 		} else {
@@ -70,7 +92,7 @@ $(document).on('pagecreate', '#home', function(){
 });
 
 
-$(document).on('pagecreate', '#options', function(){
+$.mobile.document.on('pagecreate', '#options', function(){
 
 	var webStorage = new WebStorage();
 
@@ -95,7 +117,7 @@ $(document).on('pagecreate', '#options', function(){
 });
 
 
-$(document).on('pagecreate', '#login', function(){
+$.mobile.document.on('pagecreate', '#login', function(){
 
 	var webStorage = new WebStorage();
 
@@ -109,12 +131,12 @@ $(document).on('pagecreate', '#login', function(){
 
 		} else {
 
-			$('#button-access').bind('click', function(event){
+			$.mobile.document.on('click', '#button-access', function(event){
 
 				var email = $('#email-login').val();
 				var password = $('#password-login').val();
 
-				$.post('http://192.168.0.6:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
+				$.post('http://192.168.0.2:7070/api/v1/user/login', {"email":email, "password":password}, function(data){
 
 			          if (Object.keys(data).indexOf("error") === 0) {
 
@@ -136,7 +158,7 @@ $(document).on('pagecreate', '#login', function(){
 										window.localStorage.setItem('phone', data.phone);
 
 
-				            $.get('http://192.168.0.6:7070/api/v1/product/list', function(data){
+				            $.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
 
 				              console.log(data.length);
 
@@ -170,7 +192,7 @@ $(document).on('pagecreate', '#login', function(){
 });
 
 
-$(document).on('pagecreate', '#register', function(){
+$.mobile.document.on('pagecreate', '#register', function(){
 
 	var webStorage = new WebStorage();
 
@@ -184,7 +206,7 @@ $(document).on('pagecreate', '#register', function(){
 
 		} else {
 
-			$('#button-register').bind('click', function(event){
+			$.mobile.document.on('click', '#button-register', function(event){
 
 				var email = $('#email-register').val();
 				var firstname = $('#firstname-register').val();
@@ -192,7 +214,7 @@ $(document).on('pagecreate', '#register', function(){
 				var phone = $('#phone-register').val();
 				var password = $('#password-register').val();
 
-				$.post('http://192.168.0.6:7070/api/v1/user/create',
+				$.post('http://192.168.0.2:7070/api/v1/user/create',
 
 					{
 						"email":email,
@@ -239,9 +261,9 @@ $(document).on('pagecreate', '#register', function(){
 });
 
 
-$(document).on('pagecreate', '#forgot-password', function(){
+$.mobile.document.on('pagecreate', '#forgot-password', function(){
 
-	$('#button-forgot-password').bind('click', function(event){
+	$.mobile.document.on('click', '#button-forgot-password', function(event){
 
 		var onConfirm = function(buttonIndex){
 
@@ -250,7 +272,7 @@ $(document).on('pagecreate', '#forgot-password', function(){
 				var email = $('#email-forgot-password').val();
 				var password = $('#password-forgot-password').val();
 
-				$.post('http://192.168.0.6:7070/api/v1/user/' + email + '/password',
+				$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/password',
 					{
 						"password":password
 					},
@@ -283,7 +305,7 @@ $(document).on('pagecreate', '#forgot-password', function(){
 });
 
 
-$(document).on('pagecreate', '#profile-detail', function(event){
+$.mobile.document.on('pagecreate', '#profile-detail', function(event){
 
 	event.preventDefault();
 
@@ -303,7 +325,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 			$('#phone-profile-detail').val(window.localStorage.getItem('phone'));
 
 
-			$('#button-profile-detail').bind('click', function(event){
+			$.mobile.document.on('click', '#button-profile-detail', function(event){
 
 				if ($('#firstname-profile-detail').attr('disabled') === 'disabled' ||
 				    $('#lastname-profile-detail').attr('disabled') === 'disabled' ||
@@ -327,7 +349,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 							var lastname = $('#lastname-profile-detail').val();
 							var phone = $('#phone-profile-detail').val();
 
-							$.post('http://192.168.0.6:7070/api/v1/user/' + email + '/update',
+							$.post('http://192.168.0.2:7070/api/v1/user/' + email + '/update',
 								{
 									"password":password,
 									"firstname":firstname,
@@ -379,7 +401,7 @@ $(document).on('pagecreate', '#profile-detail', function(event){
 });
 
 
-$(document).on('pagecreate', '#product-create', function(){
+$.mobile.document.on('pagecreate', '#product-create', function(){
 
 	var webStorage = new WebStorage();
 
@@ -389,25 +411,26 @@ $(document).on('pagecreate', '#product-create', function(){
 
 		if(webStorage.sessionStorageCheck()){
 
-			console.log('sessionStorage `#button-product-create` OK');
+			console.log('sessionStorage `#product-create` OK');
 
-		} else {
+			$.mobile.document.on('click', '#button-product-create', function(event){
 
-			$('#button-product-create').bind('click', function(event){
+				console.log('#button-product-create');
 
 				var name = $('#name-product-create').val();
 				var type = $('#type-product-create').val();
 				var quantity = $('#quantity-product-create').val();
 				var amount = $('#amount-product-create').val();
 
-				$.post('http://192.168.0.6:7070/api/v1/product/create',
+				$.post('http://192.168.0.2:7070/api/v1/product/create',
 					{
 						"name":name,
 						"type":type,
 						"quantity":quantity,
 						"amount":amount
 					}
-				 , function(data){
+
+				, function(data){
 
 					 	if(Object.keys(data).indexOf('error') === 0){
 
@@ -436,6 +459,10 @@ $(document).on('pagecreate', '#product-create', function(){
 
 				 event.preventDefault();
 			});
+
+		} else {
+
+			console.log('No tienes sesion activa :(');
 		}
 	} else {
 		console.log('No soporta sessionStorage :(');
@@ -443,7 +470,7 @@ $(document).on('pagecreate', '#product-create', function(){
 });
 
 
-$(document).on('pagecreate', '#product-detail', function(event){
+$.mobile.document.on('pagecreate', '#product-detail', function(event){
 
 	event.preventDefault();
 
@@ -455,15 +482,14 @@ $(document).on('pagecreate', '#product-detail', function(event){
 
 		if (webStorage.sessionStorageCheck()){
 
-			console.log(window.localStorage.getItem('email'));
+			console.log(window.localStorage.getItem('name'));
 
 			$('#name-product-detail').val(window.localStorage.getItem('name'));
 			$('#type-product-detail').val(window.localStorage.getItem('type'));
 			$('#quantity-product-detail').val(window.localStorage.getItem('quantity'));
 			$('#amount-product-detail').val(window.localStorage.getItem('amount'));
 
-
-			$('#button-product-detail').bind('click', function(event){
+			$.mobile.document.on('click', '#button-product-detail', function(event){
 
 				if ($('#name-product-detail').attr('disabled') === 'disabled' ||
 				    $('#type-product-detail').attr('disabled') === 'disabled' ||
@@ -487,7 +513,7 @@ $(document).on('pagecreate', '#product-detail', function(event){
 							var amount = $('#amount-product-detail').val();
 							var id =  window.localStorage.getItem('product_id');
 
-							$.post('http://192.168.0.6:7070/api/v1/product/' + id + '/update',
+							$.post('http://192.168.0.2:7070/api/v1/product/' + id + '/update',
 								{
 									"name":name,
 									"type":type,
@@ -503,8 +529,27 @@ $(document).on('pagecreate', '#product-detail', function(event){
 									window.localStorage.setItem('amount', data.amount);
 									window.localStorage.setItem('product_id', data.id);
 
-									$('#email-product-detail, #firstname-product-detail, #lastname-product-detail, #phone-product-detail').attr('disabled', 'disabled');
-									$('#firstname-product-detail, #lastname-product-detail, #phone-product-detail').parent().addClass('ui-state-disabled');
+									$('#name-product-detail, #type-product-detail, #quantity-product-detail, #amount-product-detail').attr('disabled', 'disabled')
+									$('#name-product-detail, #type-product-detail, #quantity-product-detail, #amount-product-detail').parent().addClass('ui-state-disabled');
+
+									/* Uso del API para traer la lista de los productos */
+									$.get('http://192.168.0.2:7070/api/v1/product/list', function(data){
+
+										$('#content-home-list-products').children().remove();
+
+										for (var i = 0; i < data.length; i++) {
+											$('#content-home-list-products').append('<li><a href="#" class="product-detail-page" data-product-id="' + data[i].id + '">' + data[i].name + '</a></li>');
+										}
+
+										$('#content-home-list-products').listview().listview('refresh');
+
+										$('body').pagecontainer('change', '#home');
+
+									}).fail(function(jqXHR, textStatus, error){
+
+										console.log(jqXHR, textStatus, error);
+
+									});
 
 								}).fail(function(jqXHR, textStatus, error){
 
@@ -513,11 +558,10 @@ $(document).on('pagecreate', '#product-detail', function(event){
 
 						} else {
 
-							$('#content-forgot-password-form').trigger('reset');
+							$('#content-product-detail-form').trigger('reset');
 
 						}
 					}
-
 					navigator.notification.confirm('Aceptar el cambio de información', onConfirm, 'Actualizar Info', ['Aceptar', 'Cancelar']);
 
 					event.preventDefault();
